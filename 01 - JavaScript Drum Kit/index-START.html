@@ -58,6 +58,30 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+//write a function that assigns the css class .playing onkeydown 
+  document.addEventListener('keydown', function(e){
+    let pressed = e.keyCode;      
+    console.log(pressed)
+      const sample = document.querySelector(`audio[data-key="${pressed}"]`);
+      const keys = document.querySelector(`.key[data-key="${pressed}"]`);
+      keys.classList.add('playing')         
+      console.log(`this is keys ${keys}`);
+      console.log(sample);
+      //prevents the function from running if key is not associated with a sample 
+      if(!sample) return;
+      //rewinds sample so that you can hit it over n over
+      sample.currentTime = 0;
+      sample.play();
+      sample.classList.add('playing');
+      })
+
+    function removeTransition(e){
+      if(e.propertyName !== 'transform') return;
+      this.classList.remove('playing')
+    }
+
+  const values = document.querySelectorAll('.key')
+  values.forEach(key => {key.addEventListener('transitionend', removeTransition)})
 
 </script>
 
